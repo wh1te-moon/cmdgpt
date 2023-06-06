@@ -1,0 +1,8 @@
+*.DS_Store
+*.csv
+chat_history/*
+.vscode/
+api.py
+sdapi.py
+.pyc
+templates/*

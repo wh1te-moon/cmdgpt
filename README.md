@@ -1,0 +1,2 @@
+# README
+一个自用的尽量好用的命令行式chatgpt的api调用
