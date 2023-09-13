@@ -5,12 +5,19 @@ import re
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 chat_history_dir = os.environ.get("CHAT_HISTORY_DIR")
+kwargs={
+    "model":"gpt-3.5-turbo",
+    "temperature":1.0,
+}
 
 
 def get_response(chat):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo", messages=chat, temperature=0.2  # diy it
+    try:
+        response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", messages=chat, temperature=1.0  # diy it
     )
+    except:
+        save_chat(chat)
     return response["choices"][0]["message"]["content"]
 
 
@@ -84,7 +91,7 @@ def load_template(history):
     return inputProcess(input("\n:"),history)
 
 
-def inputProcess(user_input, history):
+def inputProcess(user_input, history:list):
     global command_dict
     if user_input[0] == "/" or user_input[0] == ":" or user_input[0]=='\\':
         command = user_input[1:]
@@ -115,6 +122,16 @@ def INPUT(history):
             continue
     return history
 
+def turing(history:list):
+    print(history)
+    while True:
+        i=input("input command:")
+        if i=="q":
+            break
+        exec(i)
+        print(history)
+    history.append({"role": "user", "content": ""})
+    return history
 command_dict = {
     "input":INPUT,
     "i":INPUT,
@@ -127,6 +144,7 @@ command_dict = {
     "q!": lambda history: exit(),
     "reinput": reinput_line,
     "default": default_command,  # 添加默认命令
+    "turing" :lambda history: turing(history),
 }
 
 
