@@ -1,7 +1,6 @@
 import openai
 import csv
 import os
-import re
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 chat_history_dir = os.environ.get("CHAT_HISTORY_DIR")
@@ -38,19 +37,11 @@ def save_chat(chat):
 
 
 def reinput_line(history):
-    target = int(history[-1]["content"][1:])
-    if len(history) > 2 * target - 1:
-        for i in range(2 * target - 1, len(history)):
-            if history[i]["role"] == "user":
-                history[i]["content"] = input(
-                    "> reinput your " + str(target) + " line:"
-                ).strip()
-                print()
-                break
-        else:
-            print(f"No user message found for line {target}")
-    else:
-        print("Input error\n")
+    target=int(input("input the line number you want to reinput:"))
+    history[target]["role"]=input("input the target,user or content or system:")
+    print("now history:",history)
+    history[target]["content"]=input("input the content:")
+    print("now history:",history)
     return history
 
 
@@ -151,7 +142,7 @@ command_dict = {
     "quit": lambda history: (save_chat(history), exit()),
     "exit": lambda history: (save_chat(history), exit()),
     "q": lambda history: (save_chat(history), exit()),
-    "q!": lambda history: exit(),
+    "q!":exit,
     "reinput": reinput_line,
     "default": default_command,  # 添加默认命令
     "turing" :lambda history: turing(history),
