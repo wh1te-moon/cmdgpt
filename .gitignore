@@ -2,7 +2,5 @@
 *.csv
 chat_history/*
 .vscode/
-api.py
-sdapi.py
 .pyc
 templates/*

@@ -108,19 +108,29 @@ def inputProcess(user_input, history:list):
         return history
 
 
-def INPUT(history):
+def INPUT(history:list[dict]):
     print("input:")
+    i=0
     while True:
         line = input()
         if line:
             if line!="END":
+                i+=1
                 inputProcess(line, history)
             else:
+                content=""
+                for j in history[-i:]:
+                    content+=j["content"]+"\n"
+                history=history[:-i]+[{"role": "user", "content": content}]
                 print("LONG INPUT END")
                 break
         else:
             continue
     return history
+
+def HELP(history:list):
+    print(command_dict)
+    default_command(history)
 
 def turing(history:list):
     print(history)
@@ -130,7 +140,7 @@ def turing(history:list):
             break
         exec(i)
         print(history)
-    history.append({"role": "user", "content": ""})
+    # history.append({"role": "user", "content": ""})
     return history
 command_dict = {
     "input":INPUT,
@@ -145,6 +155,7 @@ command_dict = {
     "reinput": reinput_line,
     "default": default_command,  # 添加默认命令
     "turing" :lambda history: turing(history),
+    "help": HELP,
 }
 
 
