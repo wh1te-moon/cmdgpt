@@ -5,7 +5,7 @@ import os
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 chat_history_dir = os.environ.get("CHAT_HISTORY_DIR")
 kwargs={
-    "model":"gpt-3.5-turbo",
+    "model":"gpt-3.5-turbo-16k",
     "temperature":1.0,
 }
 
@@ -13,14 +13,14 @@ kwargs={
 def get_response(chat):
     try:
         response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo", messages=chat, temperature=1.0  # diy it
+        model="gpt-3.5-turbo", messages=chat, temperature=1.0 # diy it
     )
     except:
         save_chat(chat)
     return response["choices"][0]["message"]["content"]
 
 
-def save_chat(chat):
+def save_chat(chat:list):
     chat.append(
         {
             "role": "user",
@@ -146,6 +146,7 @@ command_dict = {
     "reinput": reinput_line,
     "default": default_command,  # 添加默认命令
     "turing" :lambda history: turing(history),
+    # "new":lambda history: (save_chat(history),main()),
     "help": HELP,
 }
 
@@ -156,7 +157,7 @@ def main():
     i = 1
     
     while True:
-        user_input = input(str(i) + " > Xhm: ").strip()
+        user_input = input(str(i) + " > user: ").strip()
         print()
         if user_input:
             history = inputProcess(user_input, history)

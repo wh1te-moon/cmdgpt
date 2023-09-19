@@ -1,24 +1,25 @@
 # README
 原作者：https://github.com/shinan6/chatgpt_cmd
-我将做一点自己的个性化适配
-1.相较原作者,你可以修改对话过程中特定的某一句.
-## Functions
-Very simple! Just chat and save.
+做了较大改进
 
-* Chat like usual.
-![](fig/demo.jpg)
 
-* Save chat history to .csv, where it summarizes a title for you.
-![](fig/csv.jpg)
+# before use
+需要设置环境变量OPENAI_API_KEY为opanai的api key，
+设置CHAT_HISTORY_DIR为保存目录。
 
-* Note that when writing the history, the bot summarizes the entire chat, which might be token consuming. It's just that even with this functionailty on I think it pretty cheap. 
-## Installation
-### Get OpenAI API key
-To get started, you need to create an OpenAI account.
+然后就可以随意使用了。
 
-1. Go to the OpenAI website (https://beta.openai.com/).
-2. Login or Signup if you didn’t have the account.
-3. Click on your profile at the top right
-4. Click on the “View API keys”.
-5. Click on the “Create new secret key”
-6. The API key will be displayed on the screen.
+
+# use
+输入内容即可进行聊天。
+当输入需要换行的内容时，输入/i(-i,\i均可，之后的所以/都可以使用\\、-代替)进入长文本输入模式，输入完毕请输入END。
+
+聊天结束想要保存聊天记录可以输入/q,/exit,/quit,不想保存聊天记录输入/q!。
+
+# other commands
+/save 保存当前记录为模板
+/load 加载某一模板
+/print 打印当前聊天记录
+/reinput 修改某一段聊天记录
+/turing 可以让程序执行你输入的代码
+/help 打印帮助
