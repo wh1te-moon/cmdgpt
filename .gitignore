@@ -1,6 +1,0 @@
-*.DS_Store
-*.csv
-chat_history/*
-.vscode/
-.pyc
-templates/*
