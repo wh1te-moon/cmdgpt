@@ -3,7 +3,7 @@ import csv
 import os
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
-chat_history_dir = os.environ.get("CHAT_HISTORY_DIR")
+chat_history_dir = os.environ.get("CHAT_HISTORY_DIR") if os.environ.get("CHAT_HISTORY_DIR") else "./chat_history"
 kwargs={
     "model":"gpt-3.5-turbo-16k",
     "temperature":1.0,
@@ -28,7 +28,7 @@ def save_chat(chat:list):
         }
     )
     with open(
-        f"{chat_history_dir}/{get_response(chat[1:])}csv", mode="w", newline=""
+        f"{chat_history_dir}/{get_response(chat[1:])}csv", mode="w",encoding='utf8',newline=""
     ) as file:
         writer = csv.DictWriter(file, fieldnames=["role", "content"])
         writer.writeheader()
@@ -52,7 +52,7 @@ def default_command(history):
 
 def save_template(history):
     file_name = "./templates/" + input("Enter file name to load the chat history:")
-    with open(file_name, "w") as f:
+    with open(file_name, "w",encoding='utf8') as f:
         for message in history:
             f.write(message["role"] + ": " + message["content"] + "\n")
     print("Chat history saved successfully\n")
@@ -66,7 +66,7 @@ def System():
 def load_template(history):
     file_name = input("Enter file name to load the chat history: ")
     try:
-        with open("./templates/"+file_name, "r") as f:
+        with open("./templates/"+file_name, "r",encoding="utf8") as f:
             lines = f.readlines()
             for line in lines:
                 if line.strip() != "":

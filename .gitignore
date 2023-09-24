@@ -3,5 +3,4 @@
 chat_history/*
 .vscode/
 .pyc
-templates/*
 __pycache__/*
