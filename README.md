@@ -16,6 +16,8 @@
 
 聊天结束想要保存聊天记录可以输入/q,/exit,/quit,不想保存聊天记录输入/q!。
 
+配合windows终端使用效果更佳.
+
 # other commands
 /save 保存当前记录为模板
 /load 加载某一模板
